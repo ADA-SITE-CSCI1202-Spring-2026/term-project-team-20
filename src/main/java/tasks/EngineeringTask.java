@@ -1,4 +1,9 @@
 package main.java.tasks;
+
+import main.java.resources.Resource;
+
+import java.util.Map;
+
 public class EngineeringTask extends ColonyTask{
     private int powerRequired;
     public EngineeringTask(String name, int timeToFix, int requiredParts,int powerRequired ){
@@ -9,12 +14,12 @@ public class EngineeringTask extends ColonyTask{
         return powerRequired;
     }
     @Override
-    public void getProcessorType(){
-        return "ENGINEERING"
+    public String getProcessorType(){
+        return "ENGINEERING";
     }
     @Override
     public Map<Resource,Integer> getResources(){
-        return Map.of(Resources.Spare_Parts,powerRequired);
+        return Map.of(Resource.SPARE_PARTS,requiredParts, Resource.POWER,powerRequired);
     }
 
 
