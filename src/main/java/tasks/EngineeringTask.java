@@ -1,5 +1,4 @@
 package main.java.tasks;
-
 public class EngineeringTask extends ColonyTask{
     private int powerRequired;
     public EngineeringTask(String name, int timeToFix, int requiredParts,int powerRequired ){

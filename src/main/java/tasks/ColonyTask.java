@@ -1,4 +1,6 @@
 package main.java.tasks;
+import main.java.resources.Resource;
+
 import java.util.*;
 public abstract class ColonyTask {
     protected String name;
@@ -21,5 +23,5 @@ public abstract class ColonyTask {
         return requiredParts;
     }
     public abstract Map <Resource,Integer> getResources();
-    public abstract void getProcessorType();
+    public abstract String getProcessorType();
 }
