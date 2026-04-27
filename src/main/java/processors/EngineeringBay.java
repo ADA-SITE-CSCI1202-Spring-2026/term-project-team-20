@@ -11,7 +11,7 @@ public class EngineeringBay implements IProcessors {
     public String processTask(ColonyTask task){
         EngineeringTask t = (EngineeringTask) task;
         return "Engineering Bay repaired [" +t.getName()+ "]" +" | Parts used: "+t.getRequiredParts()+" | Power used: "
-                +t.getPowerRequired()+" | Time: "+t.getTimetoFix()+"s";
+                +t.getPowerRequired()+" | Time: "+t.getTimeToFix()+"s";
     }
     @Override
     public boolean canProcess(ColonyTask task){
