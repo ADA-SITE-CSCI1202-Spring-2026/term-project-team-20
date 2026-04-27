@@ -16,7 +16,7 @@ public class Hydroponic implements IProcessors {
         return "Hydroponics Bay completed [" + t.getName() + "]"
                 + " | Rations used: " + t.getRationsRequired()
                 + " | Parts used: " + t.getRequiredParts()
-                + " | Time: " + t.getTimetoFix() + "s";
+                + " | Time: " + t.getTimeToFix() + "s";
     }
 
     @Override
