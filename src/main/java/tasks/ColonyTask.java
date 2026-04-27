@@ -16,7 +16,7 @@ public abstract class ColonyTask {
 
         return name;
     }
-    public int getTimetoFix(){
+    public int getTimeToFix(){
         return timeToFix;
     }
     public int getRequiredParts(){
