@@ -19,7 +19,7 @@ public class MedicalWard implements IProcessors {
                 + " | O2 used: " + t.getOxygen()
                 + " | Water used: " + t.getWaterAmount()
                 + " | Parts used: " + t.getRequiredParts()
-                + " | Time: " + t.getTimetoFix() + "s";
+                + " | Time: " + t.getTimeToFix() + "s";
     }
 
     @Override
