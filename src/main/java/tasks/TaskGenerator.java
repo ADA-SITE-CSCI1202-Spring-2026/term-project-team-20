@@ -16,15 +16,6 @@ public class TaskGenerator {
     };
 
     private final Random random = new Random();
-//    private final Queue <ColonyTask> taskQueue; // taskin hara getdiyini
-//    private Runnable onTaskGenerated; // gui-e xeberdarliq edir
-
-//    public TaskGenerator(Queue<ColonyTask> taskQueue) {
-//        this.taskQueue = taskQueue;
-//    }
-//    public void setOnTaskGenerated(Runnable callback){
-//        this.onTaskGenerated= callback;
-//    }
     public ColonyTask generateRandomTask(){
         int type = random.nextInt(3);
 
@@ -58,7 +49,6 @@ public class TaskGenerator {
             }
         }
 
-//        taskQueue.add(task);
         return task;
     };
 
