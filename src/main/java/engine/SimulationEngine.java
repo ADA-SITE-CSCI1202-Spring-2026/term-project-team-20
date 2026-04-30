@@ -38,7 +38,7 @@ public class SimulationEngine {
     // "Execute Next Task"-a butonuna basanda cagirilan method, system log ucun error mesajini verir
     public String executeNextTask()
     {
-        ColonyTask task = taskQueue.poll();
+        ColonyTask task = taskQueue.peek();
 
         if (task == null)
         {
@@ -50,6 +50,8 @@ public class SimulationEngine {
         {
             return "ERROR: Cannot fix: " + task.getName() + " - Not enough resources!";
         }
+
+        taskQueue.poll();
 
         // taskin uygun oldugu processoru tapir - canProcess() ile
         for (IProcessors processor : processors)
