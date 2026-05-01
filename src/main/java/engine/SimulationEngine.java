@@ -12,7 +12,7 @@ import java.util.*;
 public class SimulationEngine {
     private final Queue<ColonyTask> taskQueue;
     private final ResourceManager resourceManager;
-    private final List<IProcessors> processors;
+    private final List<IProcessor> processors;
     private final TaskGenerator taskGenerator;
 
     public SimulationEngine()
@@ -24,7 +24,7 @@ public class SimulationEngine {
         processors = new ArrayList<>();
         processors.add(new EngineeringBay());
         processors.add(new MedicalWard());
-        processors.add(new Hydroponic());
+        processors.add(new Hydroponics());
     }
 
     // her 3 saniyeden bir timer terefinden cagirilan method
@@ -38,7 +38,7 @@ public class SimulationEngine {
     // "Execute Next Task"-a butonuna basanda cagirilan method, system log ucun error mesajini verir
     public String executeNextTask()
     {
-        ColonyTask task = taskQueue.poll();
+        ColonyTask task = taskQueue.peek();
 
         if (task == null)
         {
@@ -48,11 +48,19 @@ public class SimulationEngine {
         // enough resourceun olub olmadigini yoxlayir
         if (!resourceManager.hasEnoughForTask(task.getResources()))
         {
-            return "ERROR: Cannot fix: " + task.getName() + " - Not enough resources!";
+            StringBuilder missing = new StringBuilder("ERROR: Cannot fix: " + task.getName() + " - Missing: ");
+            task.getResources().forEach((r, amt) -> {
+                if (!resourceManager.hasEnough(r, amt))
+                    missing.append(r.name()).append(" (need ").append(amt)
+                            .append(", have ").append(resourceManager.getAmount(r)).append(") ");
+            });
+            return missing.toString().trim();
         }
 
+        taskQueue.poll();
+
         // taskin uygun oldugu processoru tapir - canProcess() ile
-        for (IProcessors processor : processors)
+        for (IProcessor processor : processors)
         {
             if (processor.canProcess(task))
             {

@@ -1,9 +1,8 @@
 package main.java.processors;
 
 import main.java.tasks.ColonyTask;
-import main.java.tasks.LifeSupportTask;
 
-public class MedicalWard implements IProcessors {
+public class MedicalWard implements IProcessor {
     @Override
     public String getProcessorName()
     {
@@ -13,13 +12,7 @@ public class MedicalWard implements IProcessors {
     @Override
     public String processTask(ColonyTask task)
     {
-        LifeSupportTask t = (LifeSupportTask) task;
-
-        return "Medical Ward resolved [" + t.getName() + "]"
-                + " | O2 used: " + t.getOxygen()
-                + " | Water used: " + t.getWaterAmount()
-                + " | Parts used: " + t.getRequiredParts()
-                + " | Time: " + t.getTimeToFix() + "s";
+        return "Medical Ward resolved: " + task.getName();
     }
 
     @Override

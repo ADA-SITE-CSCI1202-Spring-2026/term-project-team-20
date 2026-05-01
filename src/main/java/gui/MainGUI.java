@@ -1,0 +1,177 @@
+package main.java.gui;
+
+import main.java.engine.SimulationEngine;
+import main.java.resources.Resource;
+import main.java.tasks.ColonyTask;
+
+import javax.swing.*;
+import java.awt.*;
+public class MainGUI extends JFrame {
+    private final SimulationEngine engine = new SimulationEngine();
+
+    // zone 1 - task queue
+    private final DefaultListModel<String> taskListModel = new DefaultListModel<>();
+    private final JList<String> taskList = new JList<>(taskListModel);
+
+    // zone 2  - resources - colony vitals
+    private final JLabel creditsLabel = new JLabel();
+    private final JLabel oxygenLabel = new JLabel();
+    private final JLabel waterLabel = new JLabel();
+    private final JLabel partsLabel = new JLabel();
+    private final JLabel powerLabel = new JLabel();
+    private final JLabel rationsLabel = new JLabel();
+
+    // zone 3 - supply chain
+    private final JComboBox<Resource> resourceDropdown = new JComboBox<>();
+
+    // zone 4 - system log
+    private final JTextArea logArea = new JTextArea();
+
+    // public MainGUI()
+    public MainGUI(){
+        setTitle("Ares Base - Survival Dashboard");
+        setSize(900,600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridLayout(2,2,8,8));
+
+        add(buildTaskQueuePanel());
+        add(buildResourcePanel());
+        add(buildSupplyChainPanel());
+        add(buildLogPanel());
+
+        refreshResourceDisplay();
+        startTimer();
+
+        setVisible(true);
+    }
+
+
+    //zone 1
+    private JPanel buildTaskQueuePanel(){
+        JPanel panel = new JPanel(new BorderLayout(4,4));
+        panel.setBorder(BorderFactory.createTitledBorder("Task Queue"));
+        panel.add(new JScrollPane(taskList),BorderLayout.CENTER);
+        JButton executeBtn = new JButton("Execute Next Task");
+        executeBtn.addActionListener(e ->{
+            String result = engine.executeNextTask();
+            if(!result.startsWith("ERROR") && !taskListModel.isEmpty()) {
+                taskListModel.remove(0);
+            }
+            log(result);
+            refreshResourceDisplay();
+        });
+        panel.add(executeBtn,BorderLayout.SOUTH);
+        return panel;
+    }
+
+    // zone 2 - colony vitals
+    private JPanel buildResourcePanel()
+    {
+        JPanel panel = new JPanel(new GridLayout(7,1,4,4));
+        panel.setBorder(BorderFactory.createTitledBorder("Colony Vitals"));
+
+        panel.add(creditsLabel);
+        panel.add(partsLabel);
+        panel.add(oxygenLabel);
+        panel.add(waterLabel);
+        panel.add(rationsLabel);
+        panel.add(powerLabel);
+
+        return panel;
+    }
+    //zone 3 - supply chain
+    private JPanel buildSupplyChainPanel(){
+        JPanel panel = new JPanel(new BorderLayout(4,4));
+        panel.setBorder(BorderFactory.createTitledBorder("Cargo Replicator"));
+
+        for(Resource r: Resource.values()){
+            if(r != Resource.CREDITS){
+                resourceDropdown.addItem(r);
+            }
+        }
+        JButton restockBtn = new JButton("Synthesize");
+        restockBtn.addActionListener(e -> {
+            Resource selected =(Resource) resourceDropdown.getSelectedItem();
+            String result = engine.restockResource(selected);
+            log(result);
+            refreshResourceDisplay();
+        });
+        panel.add(resourceDropdown,BorderLayout.CENTER);
+        panel.add(restockBtn,BorderLayout.SOUTH);
+        return panel;
+    }
+
+    // zone 4 - Base Terminal
+    private JPanel buildLogPanel(){
+        JPanel panel = new JPanel(new BorderLayout(4,4));
+        panel.setBorder(BorderFactory.createTitledBorder("Base Terminal"));
+
+        logArea.setEditable(false);
+        logArea.setLineWrap(true);
+        panel.add(new JScrollPane(logArea),BorderLayout.CENTER);
+
+        JPanel btnRow = new JPanel(new GridLayout(1,2,4,0));
+
+        JButton saveBtn = new JButton("Save State");
+        saveBtn.addActionListener(e -> log(engine.saveState()));
+
+        JButton loadBtn = new JButton("Load State");
+        loadBtn.addActionListener(e -> {
+            String result = engine.loadState();
+            log(result);
+            refreshTaskList();
+            refreshResourceDisplay();
+
+        });
+        btnRow.add(saveBtn);
+        btnRow.add(loadBtn);
+        panel.add(btnRow,BorderLayout.SOUTH);
+        return panel;
+
+    }
+
+    private void startTimer(){
+        Timer timer = new Timer(3000, e -> {
+            ColonyTask task = engine.generateTask();
+            taskListModel.addElement(task.getName()+ " ["+ task.getProcessorType()+"]" );
+            log("WARNING: New Task - " + task.getName());
+        });
+        timer.start();
+    }
+
+    private  void refreshResourceDisplay(){
+        creditsLabel.setText("Credits:    " + engine.getCredits());
+        oxygenLabel.setText("Oxygen:    " + engine.getResourceAmount(Resource.OXYGEN));
+        waterLabel.setText("Water:    " + engine.getResourceAmount(Resource.WATER));
+        partsLabel.setText("Spare Parts:    " + engine.getResourceAmount(Resource.SPARE_PARTS));
+        rationsLabel.setText("Rations:    " + engine.getResourceAmount(Resource.RATIONS));
+        powerLabel.setText("Power:    " + engine.getResourceAmount(Resource.POWER));
+    }
+
+    private void refreshTaskList(){
+        taskListModel.clear();
+        for(ColonyTask task : engine.getTaskQueue())
+        {
+            taskListModel.addElement(task.getName() + "[" + task.getProcessorType() + "]");
+        }
+    }
+
+    private void log(String message){
+        logArea.append(message + "\n");
+        logArea.setCaretPosition(logArea.getDocument().getLength());
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MainGUI::new);
+    }
+
+
+
+
+
+
+
+
+
+
+}
