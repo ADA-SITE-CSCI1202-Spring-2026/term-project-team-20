@@ -1,24 +1,27 @@
 package main.java.tasks;
+import main.java.resources.Resource;
 
+import java.util.*;
 public abstract class ColonyTask {
     protected String name;
-    protected int time;
-    protected int parts;
+    protected int timeToFix;
+    protected int requiredParts;
 
-    public ColonyTask(String name, int time, int parts){
+    public ColonyTask(String name, int timeToFix, int requiredParts){
         this.name=name;
-        this.time=time;
-        this.parts=parts;
+        this.timeToFix=timeToFix;
+        this.requiredParts=requiredParts;
     }
     public String getName(){
 
         return name;
     }
-    public int getTime(){
-        return time;
+    public int getTimeToFix(){
+        return timeToFix;
     }
-    public int getParts(){
-        return parts;
+    public int getRequiredParts(){
+        return requiredParts;
     }
-    public abstract void getProcessorType();
+    public abstract Map <Resource,Integer> getResources();
+    public abstract String getProcessorType();
 }
