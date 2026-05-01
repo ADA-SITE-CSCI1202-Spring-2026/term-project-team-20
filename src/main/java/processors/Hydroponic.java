@@ -12,11 +12,7 @@ public class Hydroponic implements IProcessors {
 
     @Override
     public String processTask(ColonyTask task) {
-        ResearchTask t = (ResearchTask) task;
-        return "Hydroponics Bay completed [" + t.getName() + "]"
-                + " | Rations used: " + t.getRationsRequired()
-                + " | Parts used: " + t.getRequiredParts()
-                + " | Time: " + t.getTimeToFix() + "s";
+        return "Hydroponics Bay completed: " + task.getName();
     }
 
     @Override

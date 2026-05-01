@@ -22,7 +22,7 @@ public class MainGUI extends JFrame {
     private final JLabel rationsLabel = new JLabel();
 
     // zone 3 - supply chain
-    // yazilacaq
+    private final JComboBox<Resource> resourceDropdown = new JComboBox<>();
 
 
     // zone 4 - system log
@@ -64,6 +64,27 @@ public class MainGUI extends JFrame {
         panel.add(rationsLabel);
         panel.add(powerLabel);
 
+        return panel;
+    }
+    //zone 3 - supply chain
+    private JPanel buildSupplyChainPanel(){
+        JPanel panel = new JPanel(new BorderLayout(4,4));
+        panel.setBorder(BorderFactory.createTitledBorder("Cargo Replicator"));
+
+        for(Resource r: Resource.values()){
+            if(r != Resource.CREDITS){
+                resourceDropdown.addItem(r);
+            }
+        }
+        JButton restockBtn = new JButton("Synthesize");
+        restockBtn.addActionListener(e -> {
+            Resource selected =(Resource) resourceDropdown.getSelectedItem();
+            String result = engine.restockResource(selected);
+            log(result);
+            refreshResourceDisplay();
+        });
+        panel.add(resourceDropdown,BorderLayout.CENTER);
+        panel.add(restockBtn,BorderLayout.SOUTH);
         return panel;
     }
 

@@ -9,9 +9,7 @@ public class EngineeringBay implements IProcessors {
     }
     @Override
     public String processTask(ColonyTask task){
-        EngineeringTask t = (EngineeringTask) task;
-        return "Engineering Bay repaired [" +t.getName()+ "]" +" | Parts used: "+t.getRequiredParts()+" | Power used: "
-                +t.getPowerRequired()+" | Time: "+t.getTimeToFix()+"s";
+        return "Engineering Bay repaired: " +task.getName();
     }
     @Override
     public boolean canProcess(ColonyTask task){
