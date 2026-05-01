@@ -28,7 +28,22 @@ public class MainGUI extends JFrame {
     private final JTextArea logArea = new JTextArea();
 
     // public MainGUI()
-    // yazilacaq
+    public MainGUI(){
+        setTitle("Ares Base - Survival Dashboard");
+        setSize(900,600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridLayout(2,2,8,8));
+
+        add(buildTaskQueuePanel());
+        add(buildResourcePanel());
+        add(buildSupplyChainPanel());
+        add(buildLogPanel());
+
+        refreshResourceDisplay();
+        startTimer();
+
+        setVisible(true);
+    }
 
 
     //zone 1
@@ -113,6 +128,24 @@ public class MainGUI extends JFrame {
         panel.add(btnRow,BorderLayout.SOUTH);
         return panel;
 
+    }
+
+    private void startTimer(){
+        Timer timer = new Timer(3000, e -> {
+            ColonyTask task = engine.generateTask();
+            taskListModel.addElement(task.getName()+ " ["+ task.getProcessorType()+"]" );
+            log("WARNING: New Task - " + task.getName());
+        });
+        timer.start();
+    }
+
+    private  void refreshResourceDisplay(){
+        creditsLabel.setText("Credits:    " + engine.getCredits());
+        oxygenLabel.setText("Oxygen:    " + engine.getResourceAmount(Resource.OXYGEN));
+        waterLabel.setText("Water:    " + engine.getResourceAmount(Resource.WATER));
+        partsLabel.setText("Spare Parts:    " + engine.getResourceAmount(Resource.SPARE_PARTS));
+        rationsLabel.setText("Rations:    " + engine.getResourceAmount(Resource.RATIONS));
+        powerLabel.setText("Power:    " + engine.getResourceAmount(Resource.POWER));
     }
 
 
