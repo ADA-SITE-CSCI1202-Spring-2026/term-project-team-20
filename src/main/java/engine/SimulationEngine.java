@@ -48,7 +48,13 @@ public class SimulationEngine {
         // enough resourceun olub olmadigini yoxlayir
         if (!resourceManager.hasEnoughForTask(task.getResources()))
         {
-            return "ERROR: Cannot fix: " + task.getName() + " - Not enough resources!";
+            StringBuilder missing = new StringBuilder("ERROR: Cannot fix: " + task.getName() + " - Missing: ");
+            task.getResources().forEach((r, amt) -> {
+                if (!resourceManager.hasEnough(r, amt))
+                    missing.append(r.name()).append(" (need ").append(amt)
+                            .append(", have ").append(resourceManager.getAmount(r)).append(") ");
+            });
+            return missing.toString().trim();
         }
 
         taskQueue.poll();
