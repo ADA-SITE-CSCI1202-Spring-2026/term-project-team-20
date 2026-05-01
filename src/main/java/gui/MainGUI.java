@@ -54,7 +54,7 @@ public class MainGUI extends JFrame {
         JButton executeBtn = new JButton("Execute Next Task");
         executeBtn.addActionListener(e ->{
             String result = engine.executeNextTask();
-            if(!taskListModel.isEmpty()) {
+            if(!result.startsWith("ERROR") && !taskListModel.isEmpty()) {
                 taskListModel.remove(0);
             }
             log(result);
