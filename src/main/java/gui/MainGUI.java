@@ -24,10 +24,8 @@ public class MainGUI extends JFrame {
     // zone 3 - supply chain
     private final JComboBox<Resource> resourceDropdown = new JComboBox<>();
 
-
     // zone 4 - system log
-    // yazilacaq
-
+    private final JTextArea logArea = new JTextArea();
 
     // public MainGUI()
     // yazilacaq
@@ -87,6 +85,42 @@ public class MainGUI extends JFrame {
         panel.add(restockBtn,BorderLayout.SOUTH);
         return panel;
     }
+
+    // zone 4 - Base Terminal
+    private JPanel buildLogPanel(){
+        JPanel panel = new JPanel(new BorderLayout(4,4));
+        panel.setBorder(BorderFactory.createTitledBorder("Base Terminal"));
+
+        logArea.setEditable(false);
+        logArea.setLineWrap(true);
+        panel.add(new JScrollPane(logArea),BorderLayout.CENTER);
+
+        JPanel btnRow = new JPanel(new GridLayout(1,2,4,0));
+
+        JButton saveBtn = new JButton("Save State");
+        saveBtn.addActionListener(e -> log(engine.saveState()));
+
+        JButton loadBtn = new JButton("Load State");
+        loadBtn.addActionListener(e -> {
+            String result = engine.loadState();
+            log(result);
+            refreshTaskList();
+            refreshResourceDisplay();
+
+        });
+        btnRow.add(saveBtn);
+        btnRow.add(loadBtn);
+        panel.add(btnRow,BorderLayout.SOUTH);
+        return panel;
+
+    }
+
+
+
+
+
+
+
 
 
 
