@@ -148,6 +148,23 @@ public class MainGUI extends JFrame {
         powerLabel.setText("Power:    " + engine.getResourceAmount(Resource.POWER));
     }
 
+    private void refreshTaskList(){
+        taskListModel.clear();
+        for(ColonyTask task : engine.getTaskQueue())
+        {
+            taskListModel.addElement(task.getName() + "[" + task.getProcessorType() + "]");
+        }
+    }
+
+    private void log(String message){
+        logArea.append(message + "\n");
+        logArea.setCaretPosition(logArea.getDocument().getLength());
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MainGUI::new);
+    }
+
 
 
 
