@@ -12,7 +12,7 @@ import java.util.*;
 public class SimulationEngine {
     private final Queue<ColonyTask> taskQueue;
     private final ResourceManager resourceManager;
-    private final List<IProcessors> processors;
+    private final List<IProcessor> processors;
     private final TaskGenerator taskGenerator;
 
     public SimulationEngine()
@@ -24,7 +24,7 @@ public class SimulationEngine {
         processors = new ArrayList<>();
         processors.add(new EngineeringBay());
         processors.add(new MedicalWard());
-        processors.add(new Hydroponic());
+        processors.add(new Hydroponics());
     }
 
     // her 3 saniyeden bir timer terefinden cagirilan method
@@ -54,7 +54,7 @@ public class SimulationEngine {
         taskQueue.poll();
 
         // taskin uygun oldugu processoru tapir - canProcess() ile
-        for (IProcessors processor : processors)
+        for (IProcessor processor : processors)
         {
             if (processor.canProcess(task))
             {

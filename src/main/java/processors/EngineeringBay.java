@@ -1,8 +1,7 @@
 package main.java.processors;
 import main.java.tasks.ColonyTask;
-import main.java.tasks.EngineeringTask;
 
-public class EngineeringBay implements IProcessors {
+public class EngineeringBay implements IProcessor {
     @Override
     public String getProcessorName(){
         return "Engineering Bay";

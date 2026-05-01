@@ -1,9 +1,8 @@
 package main.java.processors;
 
 import main.java.tasks.ColonyTask;
-import main.java.tasks.LifeSupportTask;
 
-public class MedicalWard implements IProcessors {
+public class MedicalWard implements IProcessor {
     @Override
     public String getProcessorName()
     {

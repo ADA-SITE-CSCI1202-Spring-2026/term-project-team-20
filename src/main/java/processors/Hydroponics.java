@@ -2,9 +2,8 @@ package main.java.processors;
 
 
 import main.java.tasks.ColonyTask;
-import main.java.tasks.ResearchTask;
 
-public class Hydroponic implements IProcessors {
+public class Hydroponics implements IProcessor {
     @Override
     public String getProcessorName() {
         return "Hydroponic Bay";
