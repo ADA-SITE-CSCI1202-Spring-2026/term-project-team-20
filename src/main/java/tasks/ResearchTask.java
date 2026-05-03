@@ -1,7 +1,6 @@
 package main.java.tasks;
 
 import main.java.resources.Resource;
-
 import java.util.Map;
 
 public class ResearchTask extends ColonyTask{

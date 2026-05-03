@@ -21,10 +21,10 @@ public class MainGUI extends JFrame {
     private final JLabel powerLabel = new JLabel();
     private final JLabel rationsLabel = new JLabel();
 
-    // zone 3 - supply chain
+    // zone 3 - cargo replicator
     private final JComboBox<Resource> resourceDropdown = new JComboBox<>();
 
-    // zone 4 - system log
+    // zone 4 - system log (terminal)
     private final JTextArea logArea = new JTextArea();
 
     // public MainGUI()
@@ -46,7 +46,7 @@ public class MainGUI extends JFrame {
     }
 
 
-    //zone 1
+    //zone 1 - Task queue
     private JPanel buildTaskQueuePanel(){
         JPanel panel = new JPanel(new BorderLayout(4,4));
         panel.setBorder(BorderFactory.createTitledBorder("Task Queue"));
@@ -79,7 +79,7 @@ public class MainGUI extends JFrame {
 
         return panel;
     }
-    //zone 3 - supply chain
+    //zone 3 - cargo replicator
     private JPanel buildSupplyChainPanel(){
         JPanel panel = new JPanel(new BorderLayout(4,4));
         panel.setBorder(BorderFactory.createTitledBorder("Cargo Replicator"));
@@ -164,14 +164,5 @@ public class MainGUI extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainGUI::new);
     }
-
-
-
-
-
-
-
-
-
 
 }
