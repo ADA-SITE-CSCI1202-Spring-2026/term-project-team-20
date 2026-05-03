@@ -16,7 +16,7 @@ public class ResourceManager {
     }
 
     public int getAmount(Resource r){
-        return inventory.getOrDefault(r,0); //key varsa r-ı, yoxdusa 0 qaytarı
+        return inventory.getOrDefault(r,0);
     }
     public void restock(Resource r, int amount){
         inventory.put(r,getAmount(r)+amount);
@@ -41,13 +41,6 @@ public class ResourceManager {
     }
     public void setCredits(int credits){
         this.credits=credits;
-    }
-    public void setInventory(Map<Resource,Integer> loadedInventory){
-        inventory.clear();
-        inventory.putAll(loadedInventory);
-    }
-    public HashMap<Resource,Integer> getInventory(){
-        return new HashMap<>(inventory);
     }
     public boolean hasEnoughForTask(Map<Resource,Integer> required){
         for(Map.Entry<Resource,Integer> entry: required.entrySet()){

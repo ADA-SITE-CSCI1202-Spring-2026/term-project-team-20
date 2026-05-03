@@ -3,10 +3,6 @@ import main.java.tasks.ColonyTask;
 
 public class EngineeringBay implements IProcessor {
     @Override
-    public String getProcessorName(){
-        return "Engineering Bay";
-    }
-    @Override
     public String processTask(ColonyTask task){
         return "Engineering Bay repaired: " +task.getName();
     }

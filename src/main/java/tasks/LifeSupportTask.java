@@ -1,6 +1,5 @@
 package main.java.tasks;
 import main.java.resources.Resource;
-
 import java.util.*;
 
 public class LifeSupportTask extends ColonyTask{
@@ -11,13 +10,11 @@ public class LifeSupportTask extends ColonyTask{
         super(name, timeToFix, requiredParts);
         this.oxygen = oxygen;
         this.waterAmount = waterAmount;
-
     }
 
     public int getOxygen() {
         return oxygen;
     }
-
     public int getWaterAmount() {
         return waterAmount;
     }
@@ -31,6 +28,4 @@ public class LifeSupportTask extends ColonyTask{
     public String getProcessorType() {
         return "LIFE_SUPPORT";
     }
-
-
 }

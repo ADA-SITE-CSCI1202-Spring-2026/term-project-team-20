@@ -27,7 +27,6 @@ public class SimulationEngine {
         processors.add(new Hydroponics());
     }
 
-    // her 3 saniyeden bir timer terefinden cagirilan method
     public ColonyTask generateTask()
     {
         ColonyTask task = taskGenerator.generateRandomTask();
@@ -35,7 +34,6 @@ public class SimulationEngine {
         return task;
     }
 
-    // "Execute Next Task"-a butonuna basanda cagirilan method, system log ucun error mesajini verir
     public String executeNextTask()
     {
         ColonyTask task = taskQueue.peek();
@@ -45,7 +43,6 @@ public class SimulationEngine {
             return "No tasks in queue!";
         }
 
-        // enough resourceun olub olmadigini yoxlayir
         if (!resourceManager.hasEnoughForTask(task.getResources()))
         {
             StringBuilder missing = new StringBuilder("ERROR: Cannot fix: " + task.getName() + " - Missing: ");
@@ -59,7 +56,6 @@ public class SimulationEngine {
 
         taskQueue.poll();
 
-        // taskin uygun oldugu processoru tapir - canProcess() ile
         for (IProcessor processor : processors)
         {
             if (processor.canProcess(task))
@@ -73,7 +69,6 @@ public class SimulationEngine {
         return "ERROR: No processor found for task: " + task.getName();
     }
 
-    // "Buy" basanda cagirilan method
     public String restockResource(Resource resource)
     {
         if (resourceManager.getCredits() < 100)
@@ -86,7 +81,6 @@ public class SimulationEngine {
         return "Bought 20 units of " + resource.name() + " for 100 credits!";
     }
 
-    // hal hazirdaki state i file-a save edende gelen method
     public String saveState()
     {
         try {
@@ -97,7 +91,6 @@ public class SimulationEngine {
         }
     }
 
-    // hal hazirdaki state i file-a load edende gelen method
     public String loadState()
     {
         try {
@@ -108,7 +101,6 @@ public class SimulationEngine {
         }
     }
 
-    // GUI ucun getterlar cari statei oxumaq ucun ??
     public int getCredits()
     {
         return resourceManager.getCredits();
@@ -123,29 +115,4 @@ public class SimulationEngine {
     {
         return taskQueue;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

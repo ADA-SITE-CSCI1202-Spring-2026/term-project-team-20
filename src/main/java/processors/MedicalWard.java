@@ -4,12 +4,6 @@ import main.java.tasks.ColonyTask;
 
 public class MedicalWard implements IProcessor {
     @Override
-    public String getProcessorName()
-    {
-        return "Medical Ward";
-    }
-
-    @Override
     public String processTask(ColonyTask task)
     {
         return "Medical Ward resolved: " + task.getName();
